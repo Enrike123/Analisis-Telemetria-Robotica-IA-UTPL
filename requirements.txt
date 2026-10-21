@@ -1,0 +1,13 @@
+# Versiones del entorno de Google Colab en el que se ejecutó el notebook FINAL
+# (Python 3.13.16). Ver resultados/reproducibilidad/entorno_python.json.
+numpy==2.1.3
+pandas==2.2.3
+scikit-learn==1.6.1
+tensorflow==2.21.0
+keras==3.13.2
+matplotlib==3.10.0
+bokeh==3.8.2
+pyarrow==23.0.1
+joblib==1.6.0
+# Solo para el modo ROS (extracción desde running.bag); el notebook lo instala si hace falta.
+# rosbags

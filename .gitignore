@@ -1,0 +1,46 @@
+# Datos originales de gran tamaño (se descargan de sus fuentes oficiales)
+*.bag
+*.parquet
+
+# Bases de datos generadas por el notebook
+*.db
+*.sqlite
+*.sqlite3
+
+# Datos derivados de Leg-KILO sin autorización de redistribución
+# (los archivos ya versionados en el repositorio privado no se ven afectados)
+datos/unitree_go1/
+datos/*_30000*.csv
+datos/*_integrado*.csv
+sql/insertar_datos.sql
+
+# Particiones procesadas y características de voraus-AD (se reconstruyen)
+datos/voraus_ad/voraus_*.csv
+dataset_voraus_AD/
+
+# Modelos entrenados
+*.keras
+*.joblib
+
+# Copias de respaldo y temporales
+*_original.csv
+*.bak
+*.zip
+*.tmp
+*.log
+
+# Python y Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Credenciales
+.env
+.env.*
+
+# Sistema operativo
+Thumbs.db
+desktop.ini
+.DS_Store
