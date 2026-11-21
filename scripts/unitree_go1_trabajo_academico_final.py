@@ -13,7 +13,8 @@ y la función display), por lo que debe ejecutarse en Colab/Jupyter.
 # **Maestría:** Inteligencia Artificial Aplicada
 # **Asignatura:** Herramientas para Inteligencia Artificial
 # **Institución:** Universidad Técnica Particular de Loja (UTPL)
-# **Estudiante:** Jaime Enrique Villegas Medina
+# **Autores:** Jaime Enrique Villegas Medina e Ing. Jorge Luis Castro Valdivia
+# **Afiliación profesional:** Universidad Católica de Santa María (UCSM), Perú
 # **Plataforma:** Google Colab
 #
 # ## 1. Introducción

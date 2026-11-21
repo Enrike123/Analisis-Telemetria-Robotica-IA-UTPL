@@ -42,4 +42,4 @@ Python, Pandas, NumPy, PyArrow, Matplotlib, Bokeh, Scikit-learn, TensorFlow, Ker
 
 ## Trabajo propio
 
-El notebook, los scripts, `sql/crear_base_datos.sql`, el catálogo de motores y la documentación son trabajo académico de Jaime Enrique Villegas Medina para la asignatura Herramientas para Inteligencia Artificial (Maestría en Inteligencia Artificial Aplicada, UTPL). No se les ha asignado una licencia de reutilización.
+El notebook, los scripts, `sql/crear_base_datos.sql`, el catálogo de motores y la documentación son trabajo académico de Jaime Enrique Villegas Medina y del Ing. Jorge Luis Castro Valdivia para la asignatura Herramientas para Inteligencia Artificial (Maestría en Inteligencia Artificial Aplicada, UTPL). No se les ha asignado una licencia de reutilización.

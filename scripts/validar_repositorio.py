@@ -40,7 +40,7 @@ SQL_INSERT = RAIZ / "sql" / "insertar_datos.sql"
 SHA_REFERENCIA = {
     CSV_INI: "a443e0370503b348ead3e6cc4bbadd08d910cea76c4768f5169a81a236f034e0",
     CSV_FIN: "d5ea866e773174baa9407bc3f35d24f4e1ba9acc4729fdd2803efbef77134bd5",
-    NB: "b44d268915f62dda162cbc08f0e5d8580ed1fa49a2d263214e684bd333b18fed",
+    NB: "fb466b55ab315d70fcff2afc9d5161bddb4ce8ef149210789c85f6be469e45c5",  # 21/11/2026: portada con los dos autores (antes b44d2689...)
 }
 METRICAS_V3 = {   # 1 127 ensayos reservados de voraus-AD
     "Isolation Forest V3": {"Precision": 0.6427, "Recall": 0.5239, "F1": 0.5772, "ROC-AUC": 0.7035,

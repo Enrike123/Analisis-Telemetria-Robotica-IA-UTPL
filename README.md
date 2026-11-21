@@ -4,8 +4,8 @@
 
 Trabajo académico final de la asignatura **Herramientas para Inteligencia Artificial**, de la **Maestría en Inteligencia Artificial Aplicada** de la **Universidad Técnica Particular de Loja (UTPL)**.
 
-**Autor:** Jaime Enrique Villegas Medina ([@Enrike123](https://github.com/Enrike123))
-**Afiliación profesional:** Universidad Católica de Santa María (UCSM), Perú
+**Autores:** Jaime Enrique Villegas Medina ([@Enrike123](https://github.com/Enrike123)) e Ing. Jorge Luis Castro Valdivia ([@jorgelcv62-ai](https://github.com/jorgelcv62-ai))
+**Afiliación profesional de ambos autores:** Universidad Católica de Santa María (UCSM), Perú
 **Plataforma de desarrollo:** Google Colab
 
 **Objetivo:** procesar, almacenar (CSV y SQLite), visualizar y analizar con inteligencia artificial la telemetría articular de robots. Se aplican Isolation Forest y autoencoders a 30 000 mediciones de un cuadrúpedo Unitree Go1 (análisis exploratorio, sin etiquetas de falla) y se evalúan esos modelos con las etiquetas del dataset voraus-AD, de un manipulador de seis ejes.

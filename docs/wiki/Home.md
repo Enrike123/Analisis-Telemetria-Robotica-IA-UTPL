@@ -2,7 +2,8 @@
 
 **Trabajo académico final de la asignatura Herramientas para Inteligencia Artificial**
 **Programa:** Maestría en Inteligencia Artificial Aplicada, Universidad Técnica Particular de Loja (UTPL)
-**Autor:** Jaime Enrique Villegas Medina. Afiliación profesional: Universidad Católica de Santa María (UCSM), Perú
+**Autores:** Jaime Enrique Villegas Medina ([@Enrike123](https://github.com/Enrike123)) e Ing. Jorge Luis Castro Valdivia ([@jorgelcv62-ai](https://github.com/jorgelcv62-ai))
+**Afiliación profesional de ambos autores:** Universidad Católica de Santa María (UCSM), Perú
 **Plataforma:** Google Colab
 
 ## Presentación
