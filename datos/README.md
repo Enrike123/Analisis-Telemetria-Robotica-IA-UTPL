@@ -1,6 +1,6 @@
 # Datos: obtención y reconstrucción
 
-El trabajo usa dos fuentes robóticas independientes: **Leg-KILO** (cuadrúpedo Unitree Go1) y **voraus-AD** (manipulador de seis ejes). Ninguno de los dos datasets originales se incluye en el repositorio. Este documento explica cómo obtenerlos y cómo reconstruir los archivos derivados que usa el notebook.
+El trabajo usa dos fuentes robóticas independientes: **Leg-KILO** (cuadrúpedo Unitree Go1) y **voraus-AD** (manipulador de seis ejes). Los archivos originales (`running.bag` y el Parquet de voraus-AD) no se incluyen por su tamaño. Sí se incluyen el **dataset inicial** y el **dataset final** del Go1, derivados de Leg-KILO bajo CC BY 4.0. Este documento explica la procedencia de cada archivo, sus licencias y cómo reconstruirlos.
 
 ## 1. Unitree Go1 (Leg-KILO)
 
@@ -10,21 +10,34 @@ El trabajo usa dos fuentes robóticas independientes: **Leg-KILO** (cuadrúpedo 
 - Secuencia utilizada: `running` (archivo `running.bag`, ROS 1, unos 216 MB). Según sus autores, el robot recorre un circuito corto al aire libre a una velocidad media de 1,5 m/s.
 - Tópico utilizado: `/high_state` (`unitree_legged_msgs/HighState`), primeros 12 elementos de `motorState`: `q` (rad), `dq` (rad/s), `tauEst` (N·m) y `temperature` (°C).
 - Referencia: Ou, G., Li, D., & Li, H. (2024). *Leg-KILO: Robust Kinematic-Inertial-Lidar Odometry for Dynamic Legged Robots*. IEEE Robotics and Automation Letters, 9(10), 8194–8201. https://doi.org/10.1109/LRA.2024.3440730
-- Licencia: **el repositorio del dataset no declara ninguna**. La licencia MIT del repositorio de código Leg-KILO no se aplica a los datos.
+- Licencia: las grabaciones rosbag y los datos de referencia (ground truth) están bajo **[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)**, según la sección "Dataset License" del README del dataset ([commit `bbdb842`](https://github.com/ouguangjun/legkilo-dataset/commit/bbdb84250876bebfaa1c6b44e0625738d4f37f07), 26/10/2026). La licencia no cubre el código ni los SDK de sus repositorios; el código de Leg-KILO tiene licencia MIT.
 
 ### 1.2. Archivos derivados
 
-| Archivo | Contenido | Generado en |
-|---|---|---|
-| `unitree_go1_telemetria_30000.csv` | **Dataset inicial**: 30 000 mediciones (2 500 instantes × 12 motores, 9 columnas) | Sección 4 del notebook (modo ROS) |
-| `crear_base_datos.sql` | Estructura de las tablas `motores` y `mediciones` (sin registros) | Sección 5 |
-| `insertar_datos.sql` | 12 motores y 30 000 mediciones como sentencias `INSERT` | Sección 5 |
-| `unitree_go1_generada.db` | Base SQLite construida con los dos scripts anteriores | Sección 6 |
-| `unitree_go1_dataset_integrado.csv` | **Dataset final**: mediciones más `pata` y `articulacion` (30 000 × 11) | Sección 9 |
+| Archivo | Contenido | Generado en | En el repositorio |
+|---|---|---|---|
+| [`unitree_go1/unitree_go1_telemetria_30000.csv`](unitree_go1/unitree_go1_telemetria_30000.csv) | **Dataset inicial**: 30 000 mediciones (2 500 instantes × 12 motores, 9 columnas) | Sección 4 del notebook (modo ROS) | Sí, CC BY 4.0 |
+| [`../sql/crear_base_datos.sql`](../sql/crear_base_datos.sql) | Estructura de las tablas `motores` y `mediciones` (sin registros) | Sección 5 | Sí |
+| [`../sql/insertar_datos.sql`](../sql/insertar_datos.sql) | 12 motores y 30 000 mediciones como sentencias `INSERT` | Sección 5 | Sí, CC BY 4.0 |
+| `unitree_go1_generada.db` | Base SQLite construida con los dos scripts anteriores | Sección 6 | No (se reconstruye) |
+| [`unitree_go1/unitree_go1_dataset_integrado.csv`](unitree_go1/unitree_go1_dataset_integrado.csv) | **Dataset final**: mediciones más `pata` y `articulacion` (30 000 × 11) | Sección 9 | Sí, CC BY 4.0 |
 
-Estos archivos **no se incluyen** en la versión pública porque contienen mediciones de Leg-KILO y su redistribución no está autorizada. Solo se incluye `sql/crear_base_datos.sql`, que contiene únicamente la estructura de la base.
+Columnas del dataset inicial: `instante`, `tiempo_ros` (s), `motor_id` (0–11), `posicion_rad` (rad), `velocidad_rad_s` (rad/s), `torque_Nm` (N·m, estimado por el robot), `temperatura_C` (°C), `tiempo_relativo_s` (s) y `sesion` (`running`). El dataset final añade `pata` y `articulacion`.
 
-### 1.3. Reconstrucción
+**Atribución requerida al reutilizar estos archivos:** citar a Ou, G., Li, D., & Li, H. (2024), enlazar https://creativecommons.org/licenses/by/4.0/ e indicar que son datos derivados (extracción, muestreo, conversión e integración descritos en [`../ATRIBUCION_Y_LICENCIAS.md`](../ATRIBUCION_Y_LICENCIAS.md)).
+
+### 1.3. Reconstrucción de la base de datos
+
+La base SQLite no se incluye como binario porque se reconstruye con los dos scripts:
+
+```bash
+sqlite3 unitree_go1.db < sql/crear_base_datos.sql
+sqlite3 unitree_go1.db < sql/insertar_datos.sql
+```
+
+Resultado verificado: 12 motores, 30 000 mediciones, `PRAGMA integrity_check` = `ok` y `PRAGMA foreign_key_check` sin filas.
+
+### 1.4. Reconstrucción desde el archivo original
 
 1. Descargar `running.bag` desde la fuente oficial.
 2. Abrir el notebook en Google Colab y fijar `MODO_EJECUCION = "ROS"` en la sección 3.
@@ -41,7 +54,13 @@ Para comparar la reconstrucción con los archivos usados en el trabajo:
 | `unitree_go1_telemetria_30000.csv` | `a443e0370503b348ead3e6cc4bbadd08d910cea76c4768f5169a81a236f034e0` |
 | `unitree_go1_dataset_integrado.csv` | `d5ea866e773174baa9407bc3f35d24f4e1ba9acc4729fdd2803efbef77134bd5` |
 
-`insertar_datos.sql` puede diferir byte a byte entre entornos aunque contenga los mismos valores, porque la forma en que `sqlite3.iterdump()` escribe los números reales depende de la versión de Python. Conviene compararlo cargando los datos, no por su hash.
+`insertar_datos.sql` puede diferir byte a byte entre entornos aunque contenga los mismos valores, porque la forma en que SQLite escribe los números reales con `iterdump()` depende de su versión. Conviene compararlo cargando los datos, no por su hash.
+
+**Precisión numérica de los archivos publicados** (verificado el 21/11/2026 leyendo los decimales con el lector exacto de Python):
+
+- Los enteros, los textos, `torque_Nm` y el orden de las filas son idénticos en los dos CSV y en `insertar_datos.sql`.
+- `insertar_datos.sql` reproduce los reales del dataset inicial con una diferencia relativa máxima de 2,0 × 10⁻¹⁶ (la última cifra binaria).
+- El dataset final difiere del inicial en los reales como máximo en 8,4 × 10⁻¹³ (velocidad), 3,1 × 10⁻¹³ (posición) y 1,9 × 10⁻¹⁵ (tiempo relativo), en relativo. Se debe a que el notebook vuelve a leer el CSV con el lector rápido de Pandas en la sección 9 antes de escribir el dataset final. Es la salida original del notebook y no afecta a ningún resultado: las consultas y los modelos dan las mismas cifras.
 
 ## 2. voraus-AD
 

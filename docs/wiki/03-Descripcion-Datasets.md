@@ -55,7 +55,7 @@ El dataset final (`unitree_go1_dataset_integrado.csv`) tiene 30 000 filas y 11 c
 
 ### Disponibilidad
 
-El repositorio de Leg-KILO no declara una licencia para los datos. Por eso los CSV derivados, la base con mediciones e `insertar_datos.sql` no se publican. El repositorio explica cómo reconstruirlos desde `running.bag`.
+Las grabaciones y los datos de referencia de Leg-KILO están bajo [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), según la sección "Dataset License" del README del dataset ([commit `bbdb842`](https://github.com/ouguangjun/legkilo-dataset/commit/bbdb84250876bebfaa1c6b44e0625738d4f37f07), 26/10/2026); la licencia no cubre su código ni sus SDK. El repositorio incluye, bajo esa misma licencia y con atribución a Ou, Li y Li (2024), el [dataset inicial](../../datos/unitree_go1/unitree_go1_telemetria_30000.csv), el [dataset final](../../datos/unitree_go1/unitree_go1_dataset_integrado.csv) y el [script de inserción](../../sql/insertar_datos.sql), además del [script de creación](../../sql/crear_base_datos.sql). Solo `running.bag` (unos 216 MB) queda fuera por su tamaño; se descarga de la fuente oficial.
 
 ## 3.3. voraus-AD
 

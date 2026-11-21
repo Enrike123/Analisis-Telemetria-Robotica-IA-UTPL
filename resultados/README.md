@@ -8,12 +8,16 @@ Las figuras se **extrajeron de las salidas incrustadas en el notebook**, sin vol
 
 | Archivo | Sección del notebook | Contenido |
 |---|---|---|
+| `go1_8_1_posicion_motor1_serie.png` | 8.1 | Serie temporal de la posición del motor 1 |
+| `go1_8_2_velocidad_motor1_serie.png` | 8.2 | Serie temporal de la velocidad del motor 1 |
 | `go1_8_3_torque_promedio_por_articulacion.png` | 8.3 | Torque absoluto promedio por tipo de articulación |
 | `go1_8_4_torque_promedio_rodillas.png` | 8.4 | Torque absoluto promedio de las cuatro rodillas |
+| `go1_10_2_isolation_forest_dispersion.png` | 10.2 | Velocidad frente a torque de las 9 000 mediciones de prueba, con las atípicas resaltadas |
 | `go1_10_2_isolation_forest_por_articulacion.png` | 10.2 | Porcentaje de mediciones atípicas por articulación |
 | `go1_11_3_entrenamiento_autoencoder.png` | 11.3 | Curvas de pérdida del autoencoder |
 | `go1_11_5_comparacion_anomalias_modelos.png` | 11.5 | Número de mediciones atípicas por modelo |
 | `go1_11_7_anomalias_por_motor.png` | 11.7 | Mediciones atípicas por motor y modelo |
+| `go1_11_7_dispersion_puntuaciones.png` | 11.7 | Puntuación de Isolation Forest frente al error del autoencoder por medición |
 | `go1_11_8_correlacion_por_articulacion.png` | 11.8 | Correlación de Spearman entre puntuaciones, por articulación |
 | `voraus_12_3_matriz_confusion_isolation_forest.png` | 12.3 | Matriz de confusión V1 por registro |
 | `voraus_12_4_entrenamiento_autoencoder.png` | 12.4 | Curvas de pérdida del autoencoder V1 |
@@ -29,7 +33,7 @@ Las figuras se **extrajeron de las salidas incrustadas en el notebook**, sin vol
 | `voraus_12_19_evaluacion_reservada_v3.png` | 12.19 | Matrices de confusión V3, 1 127 ensayos reservados |
 | `voraus_12_19_estabilidad_f1.png` | 12.19.1 | F1 en la prueba exploratoria y en los ensayos reservados |
 
-En esta versión pública se omitieron cuatro figuras que permiten reconstruir series o pares de mediciones de Leg-KILO: las series temporales de las secciones 8.1 y 8.2 y las dispersiones de las secciones 10.2 y 11.7.
+Las 24 figuras del notebook están incluidas. Las 11 figuras `go1_*` se calculan con datos de Leg-KILO y las 13 figuras `voraus_*` con datos de voraus-AD.
 
 ## Métricas (`metricas/`)
 
@@ -50,4 +54,4 @@ En esta versión pública se omitieron cuatro figuras que permiten reconstruir s
 ## Licencia de los resultados derivados
 
 - Las figuras y métricas de **voraus-AD** son obras derivadas de un dataset con licencia CC BY-NC-SA 4.0. Se distribuyen con atribución a Brockmann et al. (2024), sin fines comerciales y bajo la misma licencia CC BY-NC-SA 4.0.
-- Las figuras de **Unitree Go1** representan resultados agregados calculados sobre mediciones de Leg-KILO (Ou et al., 2024). Las mediciones originales pertenecen a sus autores, y el dataset no declara licencia.
+- Las figuras de **Unitree Go1** son obras derivadas del dataset Leg-KILO (Ou et al., 2024), cuyas grabaciones y datos de referencia tienen licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) ([commit `bbdb842`](https://github.com/ouguangjun/legkilo-dataset/commit/bbdb84250876bebfaa1c6b44e0625738d4f37f07)). Se distribuyen bajo CC BY 4.0, con atribución a los autores. Cambios: extracción, muestreo, cálculo de estadísticas y modelos de detección.

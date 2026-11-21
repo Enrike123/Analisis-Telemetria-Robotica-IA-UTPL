@@ -117,7 +117,10 @@ En una **ejecución anterior** del notebook, el entrenamiento del Autoencoder V3
 
 **Matplotlib, Unitree Go1**
 
-- *Series temporales de posición y velocidad del motor 1* (secciones 8.1 y 8.2): muestran cómo evolucionan la posición y la velocidad de una articulación durante la secuencia. No se publican, porque reproducen mediciones de Leg-KILO; se generan al ejecutar el notebook con los datos originales.
+- *Series temporales de posición y velocidad del motor 1* (secciones 8.1 y 8.2): muestran cómo evolucionan la posición y la velocidad de una articulación durante la secuencia.
+
+![Posición angular del motor 1](../../resultados/figuras/go1_8_1_posicion_motor1_serie.png)
+
 - *Torque absoluto promedio por articulación y por rodilla*: las rodillas soportan el mayor torque, y la trasera derecha es la de valor más alto (8,26 N·m).
 
 ![Torque promedio por articulación](../../resultados/figuras/go1_8_3_torque_promedio_por_articulacion.png)

@@ -7,12 +7,9 @@
 *.sqlite
 *.sqlite3
 
-# Datos derivados de Leg-KILO sin autorización de redistribución
-# (los archivos ya versionados en el repositorio privado no se ven afectados)
-datos/unitree_go1/
-datos/*_30000*.csv
-datos/*_integrado*.csv
-sql/insertar_datos.sql
+# Los datos derivados de Leg-KILO (CC BY 4.0) SÍ se versionan:
+# datos/unitree_go1/*.csv y sql/insertar_datos.sql.
+# La base SQLite binaria se reconstruye con los scripts SQL (ver datos/README.md).
 
 # Particiones procesadas y características de voraus-AD (se reconstruyen)
 datos/voraus_ad/voraus_*.csv
@@ -36,9 +33,13 @@ __pycache__/
 .venv/
 venv/
 
-# Credenciales
+# Credenciales y archivos de recuperación (nunca deben publicarse)
 .env
 .env.*
+*recovery-codes*
+*recovery_codes*
+*.pem
+*.key
 
 # Sistema operativo
 Thumbs.db

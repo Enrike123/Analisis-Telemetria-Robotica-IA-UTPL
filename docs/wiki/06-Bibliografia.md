@@ -12,7 +12,7 @@ Brockmann, J. T., Rudolph, M., Rosenhahn, B., & Wandt, B. (2024). The voraus-AD 
 
 Ou, G., Li, D., & Li, H. (2024). Leg-KILO: Robust kinematic-inertial-lidar odometry for dynamic legged robots. *IEEE Robotics and Automation Letters, 9*(10), 8194–8201. https://doi.org/10.1109/LRA.2024.3440730
 
-- Dataset: https://github.com/ouguangjun/legkilo-dataset (sin licencia declarada para los datos).
+- Dataset: https://github.com/ouguangjun/legkilo-dataset (grabaciones y datos de referencia bajo CC BY 4.0, https://creativecommons.org/licenses/by/4.0/, según la sección "Dataset License" de su README, commit bbdb842 del 26/10/2026).
 - Código: https://github.com/ouguangjun/Leg-KILO (licencia MIT, solo para el código).
 
 ## 6.2. Algoritmos y métodos

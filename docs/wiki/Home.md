@@ -43,3 +43,5 @@ Estos valores describen la detección de anomalías inducidas en voraus-AD. No d
 El notebook académico, los scripts, el SQL de la base de datos, las métricas y las figuras están en el repositorio asociado a esta Wiki. Su README explica cómo obtener los datos y reproducir los experimentos.
 
 Repositorio: https://github.com/Enrike123/Analisis-Telemetria-Robotica-IA-UTPL
+
+El dataset inicial y el dataset final del Unitree Go1 están en [`datos/unitree_go1/`](https://github.com/Enrike123/Analisis-Telemetria-Robotica-IA-UTPL/tree/main/datos/unitree_go1) (derivados de Leg-KILO, CC BY 4.0).

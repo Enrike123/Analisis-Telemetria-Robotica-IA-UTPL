@@ -36,7 +36,7 @@ Desarrollar y evaluar, en Google Colab, un flujo de procesamiento, almacenamient
 | Dos fuentes de datos, una CSV y otra en base de datos | Dos fuentes robóticas independientes (Leg-KILO y voraus-AD). La telemetría del Go1 se procesa en CSV y se almacena y consulta en SQLite (página 3) |
 | Pandas o similar | Pandas para leer CSV y Parquet, consultar SQL e integrar datos |
 | Matplotlib, Bokeh o PyWalker | Matplotlib y Bokeh |
-| Archivos en GitHub | Notebook, SQL de la base, scripts, métricas, figuras e instrucciones para obtener y reconstruir los datos |
+| Archivos en GitHub | Dataset inicial y dataset final (CSV), SQL de creación e inserción, notebook que genera la base, scripts, métricas, figuras e instrucciones de reproducción |
 
 ## 1.6. Alcance y delimitaciones
 

@@ -1,14 +1,57 @@
 # Análisis de telemetría robótica y detección de anomalías con inteligencia artificial
 
-[![Abrir en Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Enrike123/Analisis-Telemetria-Robotica-IA-UTPL/blob/main/notebooks/Unitree_Go1_Trabajo_Academico_FINAL_publico.ipynb)
-
-El botón abre en Google Colab la versión pública del notebook académico: el código es idéntico al de la ejecución definitiva, pero se omitieron las salidas que reproducen mediciones del dataset Leg-KILO.
+[![Abrir en Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Enrike123/Analisis-Telemetria-Robotica-IA-UTPL/blob/main/notebooks/Unitree_Go1_Trabajo_Academico_FINAL.ipynb)
 
 Trabajo académico final de la asignatura **Herramientas para Inteligencia Artificial**, de la **Maestría en Inteligencia Artificial Aplicada** de la **Universidad Técnica Particular de Loja (UTPL)**.
 
 **Autor:** Jaime Enrique Villegas Medina ([@Enrike123](https://github.com/Enrike123))
 **Afiliación profesional:** Universidad Católica de Santa María (UCSM), Perú
 **Plataforma de desarrollo:** Google Colab
+
+**Objetivo:** procesar, almacenar (CSV y SQLite), visualizar y analizar con inteligencia artificial la telemetría articular de robots. Se aplican Isolation Forest y autoencoders a 30 000 mediciones de un cuadrúpedo Unitree Go1 (análisis exploratorio, sin etiquetas de falla) y se evalúan esos modelos con las etiquetas del dataset voraus-AD, de un manipulador de seis ejes.
+
+## Acceso rápido
+
+| Evidencia | Enlace |
+|---|---|
+| Notebook con todos los pasos y sus resultados | [`notebooks/Unitree_Go1_Trabajo_Academico_FINAL.ipynb`](notebooks/Unitree_Go1_Trabajo_Academico_FINAL.ipynb) · [abrir en Colab](https://colab.research.google.com/github/Enrike123/Analisis-Telemetria-Robotica-IA-UTPL/blob/main/notebooks/Unitree_Go1_Trabajo_Academico_FINAL.ipynb) |
+| Dataset inicial (CSV, 30 000 mediciones) | [`datos/unitree_go1/unitree_go1_telemetria_30000.csv`](datos/unitree_go1/unitree_go1_telemetria_30000.csv) |
+| SQL de creación de la base de datos | [`sql/crear_base_datos.sql`](sql/crear_base_datos.sql) |
+| SQL de inserción de registros | [`sql/insertar_datos.sql`](sql/insertar_datos.sql) |
+| Código que genera los SQL y la base SQLite | Secciones 5 y 6 del notebook · [exportación `.py`](scripts/unitree_go1_trabajo_academico_final.py) |
+| Dataset final (CSV integrado, 30 000 × 11) | [`datos/unitree_go1/unitree_go1_dataset_integrado.csv`](datos/unitree_go1/unitree_go1_dataset_integrado.csv) |
+| Visualizaciones (24 figuras) | [`resultados/figuras/`](resultados/figuras/) · [descripción de cada figura](resultados/README.md) |
+| Métricas y configuración de los modelos | [`resultados/metricas/`](resultados/metricas/) |
+| Informe académico (GitHub Wiki) | https://github.com/Enrike123/Analisis-Telemetria-Robotica-IA-UTPL/wiki |
+| Obtención y reconstrucción de los datos | [`datos/README.md`](datos/README.md) |
+| Licencias y atribución | [`ATRIBUCION_Y_LICENCIAS.md`](ATRIBUCION_Y_LICENCIAS.md) |
+
+## Cumplimiento de los requisitos de la actividad
+
+| Requisito | Evidencia |
+|---|---|
+| Plataforma JupyterLab o Google Colab | Google Colab; el botón superior abre el notebook |
+| Dos datasets: uno con origen en CSV y otro en una base de datos | Telemetría del Go1 en CSV y catálogo de motores en la base SQLite, integrados con Pandas. voraus-AD (Parquet) es una segunda fuente experimental independiente. Ver la sección 4 |
+| Consumo con Pandas | `read_csv`, `read_sql_query`, `read_parquet`, `merge` y `groupby` |
+| Visualización con Matplotlib, Bokeh o PyWalker | Matplotlib (24 figuras) y Bokeh (2 gráficos interactivos, secciones 8.5 y 8.6) |
+| Dataset inicial | [`datos/unitree_go1/unitree_go1_telemetria_30000.csv`](datos/unitree_go1/unitree_go1_telemetria_30000.csv) |
+| SQL de la base de datos | [`sql/crear_base_datos.sql`](sql/crear_base_datos.sql) y [`sql/insertar_datos.sql`](sql/insertar_datos.sql) |
+| Script o notebook que genera la base | Notebook, secciones 5 y 6 |
+| Notebook con los pasos | [`notebooks/Unitree_Go1_Trabajo_Academico_FINAL.ipynb`](notebooks/Unitree_Go1_Trabajo_Academico_FINAL.ipynb) |
+| Dataset final | [`datos/unitree_go1/unitree_go1_dataset_integrado.csv`](datos/unitree_go1/unitree_go1_dataset_integrado.csv) |
+| Informe en GitHub Wiki (1 a 6 y 4.1) | https://github.com/Enrike123/Analisis-Telemetria-Robotica-IA-UTPL/wiki (ver la sección 17) |
+
+## Reproducción mínima
+
+1. Pulsar **Abrir en Google Colab**.
+2. **Unitree Go1 (secciones 1 a 11):** con `MODO_EJECUCION = "CSV"`, la celda de la sección 3 pide el archivo `unitree_go1_telemetria_30000.csv` si no está presente. Se puede subir desde [`datos/unitree_go1/`](datos/unitree_go1/), o descargarlo antes con una celda nueva:
+
+   ```python
+   !wget -q https://raw.githubusercontent.com/Enrike123/Analisis-Telemetria-Robotica-IA-UTPL/main/datos/unitree_go1/unitree_go1_telemetria_30000.csv
+   ```
+
+   Estas secciones generan los SQL, la base SQLite, las visualizaciones y el dataset final. No necesitan Google Drive.
+3. **voraus-AD (sección 12):** necesita el Parquet oficial y las particiones generadas con [`scripts/preparar_voraus.py`](scripts/preparar_voraus.py) en Google Drive. Ver la sección 14.
 
 ## 1. Problema
 
@@ -21,38 +64,19 @@ Desarrollar y evaluar, en Google Colab, un flujo de procesamiento, almacenamient
 - un análisis exploratorio de la telemetría de un robot cuadrúpedo Unitree Go1 (sin etiquetas de falla), y
 - una evaluación cuantitativa de los mismos tipos de modelo sobre un dataset etiquetado de un manipulador robótico (voraus-AD).
 
-## 3. Requisitos de la actividad y cómo se cumplen
+## 3. Archivos que se distribuyen
 
-| Requisito del docente | Cumplimiento |
+| Contenido | Licencia |
 |---|---|
-| Plataforma JupyterLab o Google Colab | Google Colab ([notebook](notebooks/)) |
-| Dos fuentes de datos: una en CSV y otra en base de datos | Ver la explicación de la sección 4 |
-| Consumo de datos con Pandas | Pandas para lectura de CSV y Parquet, consultas SQL con `read_sql_query` e integración con `merge` |
-| Visualización con Matplotlib, Bokeh o PyWalker | Matplotlib (24 figuras) y Bokeh (2 gráficos interactivos) |
-| Dataset inicial en GitHub | **No incluido físicamente** (licencia, sección 15). [`datos/README.md`](datos/README.md) indica la fuente oficial, la descarga, la reconstrucción y el SHA-256 de referencia |
-| SQL de la base de datos | [`sql/crear_base_datos.sql`](sql/crear_base_datos.sql) |
-| Script o notebook que genera la base de datos | Secciones 5 y 6 del notebook (generan `insertar_datos.sql` y la base SQLite) |
-| Notebook con los pasos de la actividad | [`notebooks/`](notebooks/) |
-| Dataset final | **No incluido físicamente** para Unitree Go1 (licencia). El notebook lo genera en la sección 9 y [`datos/README.md`](datos/README.md) da su SHA-256 de referencia. De voraus-AD se incluye la partición de ensayos |
-| Informe en GitHub Wiki | Ver la sección 17 |
-
-### Archivos que se distribuyen y archivos que se excluyen
-
-| Se distribuye en este repositorio | Licencia o condición |
-|---|---|
-| Notebook académico con sus resultados (`notebooks/…_publico.ipynb`) y su exportación `.py` | Código propio. Se omitieron las salidas de 12 celdas que reproducían mediciones de Leg-KILO |
-| `sql/crear_base_datos.sql` (solo estructura, sin registros) | Código propio |
-| Scripts de preparación de voraus-AD (`scripts/`) | Código propio |
+| Datos derivados de Leg-KILO: dataset inicial, dataset final y `insertar_datos.sql` | **CC BY 4.0**, igual que el dataset original (ver la sección 15) |
+| Notebook con todas sus salidas (incluye tablas, series temporales y gráficos Bokeh del Go1) y figuras del Go1 | Código propio; las salidas y figuras derivadas de Leg-KILO, CC BY 4.0 |
 | Métricas, configuración V3, particiones y figuras de voraus-AD | Derivados de voraus-AD, **CC BY-NC-SA 4.0** |
-| Figuras agregadas de Unitree Go1 (promedios, conteos, curvas de entrenamiento) | Resultados agregados; las mediciones originales pertenecen a los autores de Leg-KILO |
+| `crear_base_datos.sql`, scripts y documentación | Trabajo propio |
 
-| Se excluye | Motivo | Cómo obtenerlo |
+| No se incluye | Motivo | Cómo obtenerlo |
 |---|---|---|
-| `running.bag` (Leg-KILO) | Dataset original de terceros, sin licencia de redistribución declarada | Fuente oficial; ver [`datos/README.md`](datos/README.md) |
-| `unitree_go1_telemetria_30000.csv` (**dataset inicial**) | Derivado directo de Leg-KILO | Notebook en modo ROS (secciones 3 y 4) |
-| `insertar_datos.sql` con 30 000 registros y la base `unitree_go1_generada.db` | Contienen las mediciones de Leg-KILO | Notebook, secciones 5 y 6 |
-| `unitree_go1_dataset_integrado.csv` (**dataset final**) | Derivado directo de Leg-KILO | Notebook, sección 9 |
-| Series temporales, dispersiones y gráficos Bokeh del Go1 | Reproducen mediciones individuales de Leg-KILO | Se generan al ejecutar el notebook |
+| `running.bag` (Leg-KILO, unos 216 MB) | Tamaño; se descarga de la fuente oficial | [`datos/README.md`](datos/README.md) |
+| Base SQLite binaria | Se reconstruye con los dos scripts SQL | Sección 14, paso 3 |
 | `voraus-ad-dataset-100hz.parquet` y sus particiones en CSV | Tamaño (1,1 GB y 520 MB); se pueden reconstruir | Fuente oficial y `scripts/preparar_voraus.py` |
 | Modelos entrenados (`.keras` y `.joblib`) | Se regeneran con el notebook; `.joblib` es un formato pickle | Notebook, sección 12.20 |
 
@@ -71,7 +95,11 @@ CSV y SQLite son **formatos de procesamiento y almacenamiento**, no dos conjunto
 - A partir de ese CSV se generó una base SQLite con dos tablas: `mediciones`, que contiene **las mismas** 30 000 mediciones, y `motores`, un catálogo de las 12 articulaciones elaborado para este trabajo.
 - El dataset final (`unitree_go1_dataset_integrado.csv`) combina el CSV con el catálogo leído desde SQLite.
 
-Por tanto, el requisito de "una fuente en CSV y otra en base de datos" se cumple como flujo de trabajo (lectura de CSV, construcción y consulta de una base SQLite e integración de ambas con Pandas). La única información de la base que no procede del CSV es el catálogo de motores. La segunda fuente de datos realmente independiente es voraus-AD, que se procesa desde Parquet.
+**Cómo se cumple el requisito de "un dataset con origen en CSV y otro en una base de datos":**
+
+- **Dataset con origen en CSV:** la telemetría de Unitree Go1 (`unitree_go1_telemetria_30000.csv`), leída con `pd.read_csv`.
+- **Dataset en una base de datos:** el catálogo de motores (tabla `motores` de SQLite: motor, pata y articulación). En la sección 9 se lee desde la base con `pd.read_sql_query` y se integra con el CSV mediante `merge` para obtener el dataset final. La base también almacena las mediciones (tabla `mediciones`), que se consultan con SQL en la sección 7.
+- **Limitación declarada:** el catálogo es una tabla de referencia de 12 filas elaborada para este trabajo, no un segundo experimento, y la tabla `mediciones` contiene las mismas mediciones que el CSV. La fuente experimental realmente independiente es **voraus-AD**, que se procesa desde Parquet y no desde una base de datos.
 
 ## 5. Herramientas empleadas
 
@@ -202,17 +230,22 @@ Archivos: [`metricas_holdout_v3.csv`](resultados/metricas/metricas_holdout_v3.cs
 ## 14. Reproducción
 
 1. Abrir el notebook en Google Colab con el botón superior.
-2. **Unitree Go1:** dejar `MODO_EJECUCION = "CSV"` y subir `unitree_go1_telemetria_30000.csv`, o elegir `"ROS"` y subir `running.bag` descargado de la fuente oficial. Las secciones 3 a 11 se ejecutan sin Google Drive.
-3. **voraus-AD:** descargar `voraus-ad-dataset-100hz.parquet` desde la fuente oficial y ejecutar `scripts/preparar_voraus.py` para generar las particiones. Después, copiar la carpeta `dataset_voraus_AD/` (con el Parquet y la subcarpeta `procesado/`) a Google Drive y ajustar `CARPETA_TRABAJO` en la sección 12.1. Las demás rutas, incluida la del Parquet, se derivan de esa variable.
-4. La ejecución completa vuelve a entrenar los modelos y **sobrescribe** los artefactos de `version_v3`. Por eso conviene trabajar en una carpeta de experimentos independiente.
+2. **Unitree Go1:** dejar `MODO_EJECUCION = "CSV"` y proporcionar [`datos/unitree_go1/unitree_go1_telemetria_30000.csv`](datos/unitree_go1/unitree_go1_telemetria_30000.csv), subiéndolo cuando la celda lo pida o con `!wget` (ver "Reproducción mínima"). También se puede elegir `"ROS"` y subir `running.bag` descargado de la fuente oficial. Las secciones 3 a 11 se ejecutan sin Google Drive.
+3. **Base de datos fuera del notebook:** ejecutar `sqlite3 unitree_go1.db < sql/crear_base_datos.sql` y después `sqlite3 unitree_go1.db < sql/insertar_datos.sql`. Se obtienen 12 motores y 30 000 mediciones.
+4. **voraus-AD:** descargar `voraus-ad-dataset-100hz.parquet` desde la fuente oficial y ejecutar `scripts/preparar_voraus.py` para generar las particiones. Después, copiar la carpeta `dataset_voraus_AD/` (con el Parquet y la subcarpeta `procesado/`) a Google Drive y ajustar `CARPETA_TRABAJO` en la sección 12.1. Las demás rutas, incluida la del Parquet, se derivan de esa variable.
+5. La ejecución completa vuelve a entrenar los modelos y **sobrescribe** los artefactos de `version_v3`. Por eso conviene trabajar en una carpeta de experimentos independiente.
+6. **Validación del repositorio:** `python scripts/validar_repositorio.py` comprueba archivos, CSV, SQL, métricas, enlaces, licencias y ausencia de secretos. Con `--en-linea` también comprueba las URL públicas.
 
 Las instrucciones detalladas están en [`datos/README.md`](datos/README.md).
 
 ## 15. Procedencia y licencias
 
-- **Leg-KILO (Unitree Go1).** Ou, G., Li, D., & Li, H. (2024). *Leg-KILO: Robust Kinematic-Inertial-Lidar Odometry for Dynamic Legged Robots*. IEEE Robotics and Automation Letters, 9(10), 8194–8201. https://doi.org/10.1109/LRA.2024.3440730. Datos: https://github.com/ouguangjun/legkilo-dataset. **El repositorio del dataset no declara una licencia** (la licencia MIT del repositorio Leg-KILO se aplica a su código, no a los datos). Las mediciones originales pertenecen a sus autores. La redistribución pública de los datos derivados queda pendiente de su autorización.
-- **voraus-AD.** Brockmann, J. T., Rudolph, M., Rosenhahn, B., & Wandt, B. (2024). *The voraus-AD Dataset for Anomaly Detection in Robot Applications*. IEEE Transactions on Robotics, 40, 438–451. https://doi.org/10.1109/TRO.2023.3332224. Datos: https://github.com/vorausrobotik/voraus-ad-dataset. El dataset tiene **licencia CC BY-NC-SA 4.0** (el código de ese repositorio, MIT). Las métricas, figuras y particiones derivadas de voraus-AD que se incluyen aquí se distribuyen con atribución, sin fines comerciales y bajo la misma licencia CC BY-NC-SA 4.0.
-- **Código propio** (notebook y scripts): trabajo académico del autor. Las bibliotecas utilizadas conservan sus licencias.
+- **Leg-KILO (Unitree Go1).** Ou, G., Li, D., & Li, H. (2024). *Leg-KILO: Robust Kinematic-Inertial-Lidar Odometry for Dynamic Legged Robots*. IEEE Robotics and Automation Letters, 9(10), 8194–8201. https://doi.org/10.1109/LRA.2024.3440730. Datos: https://github.com/ouguangjun/legkilo-dataset.
+  - **Licencia:** las grabaciones (rosbag) y los datos de referencia (ground truth) del dataset están bajo [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), según la sección "Dataset License" que sus autores añadieron al README del dataset ([commit `bbdb842`](https://github.com/ouguangjun/legkilo-dataset/commit/bbdb84250876bebfaa1c6b44e0625738d4f37f07), 26/10/2026). Esa licencia no cubre el código, los SDK ni otros contenidos de sus repositorios; el código de Leg-KILO tiene su propia licencia MIT.
+  - **Cambios realizados:** extracción del tópico `/high_state` de la secuencia `running`, selección de 2 500 instantes equiespaciados de los 12 motores, conversión a CSV, generación de scripts SQL y de una base SQLite, e incorporación de un catálogo de motores (pata y articulación) elaborado para este trabajo.
+  - **Licencia de los derivados:** los datos derivados (los dos CSV e `insertar_datos.sql`) y las figuras y salidas calculadas con ellos se distribuyen bajo CC BY 4.0, con atribución a los autores originales.
+- **voraus-AD.** Brockmann, J. T., Rudolph, M., Rosenhahn, B., & Wandt, B. (2024). *The voraus-AD Dataset for Anomaly Detection in Robot Applications*. IEEE Transactions on Robotics, 40, 438–451. https://doi.org/10.1109/TRO.2023.3332224. Datos: https://github.com/vorausrobotik/voraus-ad-dataset. El dataset tiene licencia [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) (el código de ese repositorio, MIT). Las métricas, figuras y particiones derivadas de voraus-AD se distribuyen con atribución, sin fines comerciales y bajo la misma licencia CC BY-NC-SA 4.0.
+- **Código propio** (notebook, scripts y SQL de creación): trabajo académico del autor, sin licencia de reutilización asignada. Las bibliotecas utilizadas conservan sus licencias.
 
 Más detalle en [`ATRIBUCION_Y_LICENCIAS.md`](ATRIBUCION_Y_LICENCIAS.md).
 
@@ -224,25 +257,29 @@ Más detalle en [`ATRIBUCION_Y_LICENCIAS.md`](ATRIBUCION_Y_LICENCIAS.md).
 ├── requirements.txt
 ├── .gitignore
 ├── notebooks/
-│   └── Unitree_Go1_Trabajo_Academico_FINAL_publico.ipynb  ← código definitivo; salidas de Leg-KILO omitidas
+│   └── Unitree_Go1_Trabajo_Academico_FINAL.ipynb   ← notebook académico definitivo, con todas sus salidas
 ├── scripts/
 │   ├── unitree_go1_trabajo_academico_final.py      ← exportación del notebook (sin ejecutar)
-│   ├── preparar_voraus.py
+│   ├── validar_repositorio.py                      ← validación automática de la entrega
+│   ├── preparar_voraus.py                          ← particiones por ensayo de voraus-AD
 │   ├── inspeccionar_voraus.py
 │   └── verificar_etiquetas_voraus.py
 ├── sql/
-│   └── crear_base_datos.sql                        ← estructura de la base (sin registros)
+│   ├── crear_base_datos.sql                        ← estructura de la base
+│   └── insertar_datos.sql                          ← 12 motores y 30 000 mediciones
 ├── datos/
-│   ├── README.md                                   ← obtención y reconstrucción de los datos
+│   ├── README.md                                   ← procedencia, licencias y reconstrucción
+│   ├── unitree_go1/
+│   │   ├── unitree_go1_telemetria_30000.csv        ← dataset inicial
+│   │   └── unitree_go1_dataset_integrado.csv       ← dataset final
 │   └── voraus_ad/particiones_ensayos.csv
 ├── resultados/
 │   ├── README.md
-│   ├── figuras/          ← figuras agregadas de la ejecución definitiva
-│   ├── metricas/
-│   └── reproducibilidad/
+│   ├── figuras/          ← 24 figuras de la ejecución definitiva
+│   ├── metricas/         ← métricas y configuración V3
+│   └── reproducibilidad/ ← entorno de ejecución
 └── docs/wiki/            ← copia de las páginas de la Wiki
 ```
-
 
 ## 17. Documentación (GitHub Wiki)
 
@@ -254,7 +291,7 @@ El informe académico está en la **Wiki del repositorio**: https://github.com/E
 | [1. Introducción](https://github.com/Enrike123/Analisis-Telemetria-Robotica-IA-UTPL/wiki/01-Introduccion) | Contexto, problema, objetivos y requisitos |
 | [2. Marco teórico](https://github.com/Enrike123/Analisis-Telemetria-Robotica-IA-UTPL/wiki/02-Marco-Teorico) | Tecnologías y bibliotecas |
 | [3. Descripción de los datasets](https://github.com/Enrike123/Analisis-Telemetria-Robotica-IA-UTPL/wiki/03-Descripcion-Datasets) | Leg-KILO y voraus-AD |
-| [4. Pasos realizados y visualizaciones](https://github.com/Enrike123/Analisis-Telemetria-Robotica-IA-UTPL/wiki/04-Metodologia-y-Resultados) | Metodología, resultados y figuras |
+| [4. Pasos realizados y visualizaciones](https://github.com/Enrike123/Analisis-Telemetria-Robotica-IA-UTPL/wiki/04-Metodologia-y-Resultados) | Metodología, resultados y figuras (4.1) |
 | [5. Conclusiones](https://github.com/Enrike123/Analisis-Telemetria-Robotica-IA-UTPL/wiki/05-Conclusiones) | Conclusiones, limitaciones y trabajo futuro |
 | [6. Bibliografía](https://github.com/Enrike123/Analisis-Telemetria-Robotica-IA-UTPL/wiki/06-Bibliografia) | Referencias con DOI |
 
